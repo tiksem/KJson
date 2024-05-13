@@ -37,7 +37,7 @@ class JObject internal constructor(private val map: Map<String, JsonElement>): J
     }
 
     override fun optString(key: String): String? {
-        return map[key]?.jsonPrimitive?.toString()
+        return map[key]?.jsonPrimitive?.contentOrNull
     }
 
     override fun getString(key: String): String {
