@@ -98,6 +98,20 @@ class JArray(private val value: JsonArray) : JValue {
         }.encodeToString(value = value)
     }
 
+    val size: Int
+        get() = value.size
+
+    fun toList(): List<JValue> {
+        return object : AbstractList<JValue>() {
+            override val size: Int
+                get() = value.size
+
+            override fun get(index: Int): JValue {
+                return this@JArray[index]
+            }
+        }
+    }
+
     companion object {
         fun parse(string: String): JArray {
             return try {
