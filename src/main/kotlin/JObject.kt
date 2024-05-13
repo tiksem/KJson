@@ -50,6 +50,16 @@ class JObject internal constructor(private val map: Map<String, JsonElement>): J
         }
     }
 
+    override fun optArray(key: String): JArray? {
+        return (map[key] as? JsonArray)?.let {
+            JArray(it)
+        }
+    }
+
+    override fun getArray(key: String): JArray {
+        return optArray(key) ?: throw JException("$key Array not found")
+    }
+
     override fun getObject(key: String): JObject {
         return optObject(key) ?: throw JException("$key Object not found")
     }

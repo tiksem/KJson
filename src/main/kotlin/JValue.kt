@@ -12,81 +12,93 @@ internal val jsonNoPrettyPrint = Json {
 
 interface JValue {
     fun optInt(key: String): Int? {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getInt(key: String): Int {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$key] ${this.javaClass.simpleName} is not an object")
     }
     fun optLong(key: String): Long? {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getLong(key: String): Long {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$key] ${this.javaClass.simpleName} is not an object")
     }
     fun optDouble(key: String): Double? {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getDouble(key: String): Double {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$key] ${this.javaClass.simpleName} is not an object")
     }
     fun optFloat(key: String): Float? {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getFloat(key: String): Float {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$key] ${this.javaClass.simpleName} is not an object")
     }
     fun optString(key: String): String? {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getString(key: String): String {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$key] ${this.javaClass.simpleName} is not an object")
     }
     fun optObject(key: String): JObject? {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getObject(key: String): JObject {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$key] ${this.javaClass.simpleName} is not an object")
+    }
+    fun optArray(key: String): JArray? {
+        return null
+    }
+    fun getArray(key: String): JArray {
+        throw JException("Unable [$key] ${this.javaClass.simpleName} is not an object")
     }
 
     fun optInt(index: Int): Int? {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getInt(index: Int): Int {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$index] ${this.javaClass.simpleName} is not an array")
     }
     fun optLong(index: Int): Long? {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getLong(index: Int): Long {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$index] ${this.javaClass.simpleName} is not an array")
     }
     fun optDouble(index: Int): Double? {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getDouble(index: Int): Double {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$index] ${this.javaClass.simpleName} is not an array")
     }
     fun optFloat(index: Int): Float? {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getFloat(index: Int): Float {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$index] ${this.javaClass.simpleName} is not an array")
     }
     fun optString(index: Int): String? {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getString(index: Int): String {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$index] ${this.javaClass.simpleName} is not an array")
     }
     fun optObject(index: Int): JObject? {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        return null
     }
     fun getObject(index: Int): JObject {
-        throw JException("Unable [$index] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$index] ${this.javaClass.simpleName} is not an array")
+    }
+    fun optArray(index: Int): JArray? {
+        return null
+    }
+    fun getArray(index: Int): JArray {
+        throw JException("Unable [$index] ${this.javaClass.simpleName} is not an array")
     }
 
     operator fun get(key: String): JValue {
-        throw JException("Unable [$key] ${this.javaClass.simpleName} is not and object")
+        throw JException("Unable [$key] ${this.javaClass.simpleName} is not an object")
     }
     
     fun opt(key: String): JValue? {

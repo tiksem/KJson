@@ -56,6 +56,16 @@ class JArray(private val value: JsonArray) : JValue {
         return optObject(index) ?: throw JException("Unable to get object by index $index")
     }
 
+    override fun getArray(index: Int): JArray {
+        return optArray(index) ?: throw JException("Unable to get arrat by index $index")
+    }
+
+    override fun optArray(index: Int): JArray? {
+        return (value.getOrNull(index) as? JsonArray)?.let {
+            JArray(it)
+        }
+    }
+
     override fun get(index: Int): JValue {
         return opt(index) ?: throw JException("Unable to get value by index $index")
     }
