@@ -18,7 +18,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.kjson"
             artifactId = "release"
-            version = "1.0.0"
+            version = "1.0.2"
             from(components["java"])
 
             pom {

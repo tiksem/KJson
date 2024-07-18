@@ -3,7 +3,7 @@ package com.kjson
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 
-class JObject internal constructor(private val map: Map<String, JsonElement>): JValue {
+class JObject internal constructor(internal val map: JsonObject): JValue {
     override fun optInt(key: String): Int? {
         return map[key]?.jsonPrimitive?.intOrNull
     }
@@ -94,6 +94,12 @@ class JObject internal constructor(private val map: Map<String, JsonElement>): J
         } else {
             jsonNoPrettyPrint
         }.encodeToString(value = map)
+    }
+
+    fun toMap(): Map<String, JValue> {
+        return map.mapValues {
+            it.value.toJValue() ?: throw JException("Corrupted JObject")
+        }
     }
 
     companion object {

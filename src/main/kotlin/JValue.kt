@@ -1,5 +1,6 @@
 package com.kjson
 
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 internal val jsonPrettyPrint = Json {
@@ -10,6 +11,7 @@ internal val jsonNoPrettyPrint = Json {
     prettyPrint = false
 }
 
+@Serializable(with = JValueSerializer::class)
 interface JValue {
     fun optInt(key: String): Int? {
         return null
@@ -218,6 +220,10 @@ interface JValue {
     
     fun tryExtractString(keys: List<Any>): String? {
         return tryExtract(keys)?.asStringOrNull()
+    }
+
+    fun tryExtractString(keyPath: String): String? {
+        return tryExtract(keyPath)?.asStringOrNull()
     }
     
     fun tryExtractInt(keyPath: String): Int? {
