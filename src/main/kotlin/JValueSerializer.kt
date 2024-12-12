@@ -30,7 +30,7 @@ private fun defer(deferred: () -> SerialDescriptor): SerialDescriptor = object :
     override fun isElementOptional(index: Int): Boolean = original.isElementOptional(index)
 }
 
-internal object JValueSerializer : KSerializer<JValue?> {
+internal object JValueSerializer : KSerializer<JValue> {
     @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     override val descriptor: SerialDescriptor =
         buildSerialDescriptor("com.kjson.JValue", PolymorphicKind.SEALED) {
@@ -40,7 +40,7 @@ internal object JValueSerializer : KSerializer<JValue?> {
             element("JArray", defer { JArraySerializer.descriptor })
         }
 
-    override fun serialize(encoder: Encoder, value: JValue?) {
+    override fun serialize(encoder: Encoder, value: JValue) {
         when (value) {
             is JPrimitive -> encoder.encodeSerializableValue(JPrimitiveSerializer, value)
             is JObject -> encoder.encodeSerializableValue(JObjectSerializer, value)
