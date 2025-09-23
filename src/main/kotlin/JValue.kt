@@ -366,7 +366,7 @@ interface JValue {
             return JArray.fromList(value)
         }
 
-        fun from(value: List<String>): JValue {
+        fun fromStringList(value: List<String>): JValue {
             return JArray.fromStringList(value)
         }
 
@@ -390,7 +390,7 @@ interface JValue {
             return JObject.fromMap(value)
         }
 
-        fun from(value: Map<String, String>): JValue {
+        fun fromStringMap(value: Map<String, String>): JValue {
             return JObject.fromStringMap(value)
         }
     }
