@@ -96,10 +96,14 @@ class JObject internal constructor(internal val map: JsonObject): JValue {
         }.encodeToString(value = map)
     }
 
-    fun toMap(): Map<String, JValue> {
+    override fun toMap(): Map<String, JValue> {
         return map.mapValues {
             it.value.toJValue() ?: throw JException("Corrupted JObject")
         }
+    }
+
+    override fun toMapOrNull(): Map<String, JValue>? {
+        return toMap()
     }
 
     companion object {
@@ -117,6 +121,31 @@ class JObject internal constructor(internal val map: JsonObject): JValue {
             } catch (e: Exception) {
                 return null
             }
+        }
+
+        fun fromMap(map: Map<String, JValue>): JObject {
+            return JObject(
+                map = buildJsonObject {
+                    map.forEach { (key, value) ->
+                        put(key, when(value) {
+                            is JObject -> value.map
+                            is JArray -> value.value
+                            is JPrimitive -> value.value ?: JsonNull
+                            else -> JsonNull
+                        })
+                    }
+                }
+            )
+        }
+
+        fun fromStringMap(map: Map<String, String>): JObject {
+            return JObject(
+                map = buildJsonObject {
+                    map.forEach { (key, value) ->
+                        put(key, JsonPrimitive(value))
+                    }
+                }
+            )
         }
     }
 }

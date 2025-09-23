@@ -2,6 +2,7 @@ package com.kjson
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonPrimitive
 
 internal val jsonPrettyPrint = Json {
     prettyPrint = true
@@ -241,6 +242,22 @@ interface JValue {
     fun tryExtractFloat(keyPath: String): Float? {
         return tryExtract(keyPath)?.toFloatOrNull()
     }
+
+    fun tryExtractList(keys: List<Any>): List<JValue>? {
+        return tryExtract(keys)?.toListOrNull()
+    }
+
+    fun tryExtractList(keyPath: String): List<JValue>? {
+        return tryExtract(keyPath)?.toListOrNull()
+    }
+
+    fun tryExtractStringList(keys: List<Any>): List<String>? {
+        return tryExtract(keys)?.toStringListOrNull()
+    }
+
+    fun tryExtractStringList(keyPath: String): List<String>? {
+        return tryExtract(keyPath)?.toStringListOrNull()
+    }
     
     fun extractString(keyPath: String): String {
         return tryExtract(keyPath)?.asStringOrNull() ?: throw JException("Unable to extract string $keyPath")
@@ -280,5 +297,101 @@ interface JValue {
 
     fun extractFloat(keys: List<Any>): Float {
         return tryExtract(keys)?.toFloatOrNull() ?: throw JException("Unable to extract float $keys")
+    }
+
+    fun extractList(keys: List<Any>): List<JValue> {
+        return tryExtractList(keys) ?: throw JException("Unable to extract list $keys")
+    }
+
+    fun extractList(keyPath: String): List<JValue> {
+        return tryExtractList(keyPath) ?: throw JException("Unable to extract list $keyPath")
+    }
+
+    fun extractStringList(keys: List<Any>): List<String> {
+        return tryExtractStringList(keys) ?: throw JException("Unable to extract string list $keys")
+    }
+
+    fun extractStringList(keyPath: String): List<String> {
+        return tryExtractStringList(keyPath) ?: throw JException("Unable to extract string list $keyPath")
+    }
+
+    fun toMapOrNull(): Map<String, JValue>? {
+        return null
+    }
+
+    fun toMap(): Map<String, JValue> {
+        return toMapOrNull() ?: throw JException("Unable to convert $this to map")
+    }
+
+    fun toList(): List<JValue> {
+        return toListOrNull() ?: throw JException("toList failed, ${this.javaClass.simpleName} is not an array")
+    }
+
+    fun toMutableList(): MutableList<JValue> {
+        return toList().toMutableList()
+    }
+
+    fun toListOrNull(): List<JValue>? {
+        return null
+    }
+
+    fun toStringList(): List<String> {
+        return toList().map {
+            it.asStringOrNull() ?: throw JException(
+                "toStringList failed, ${this.javaClass.simpleName} contains non-string value: $it"
+            )
+        }
+    }
+
+    fun toStringListOrNull(): List<String>? {
+        return toListOrNull()?.map {
+            it.asStringOrNull() ?: return null
+        }
+    }
+
+    companion object {
+        fun from(value: Number): JValue {
+            return JPrimitive(JsonPrimitive(value))
+        }
+
+        fun from(value: String): JValue {
+            return JPrimitive(JsonPrimitive(value))
+        }
+
+        fun from(value: Boolean): JValue {
+            return JPrimitive(JsonPrimitive(value))
+        }
+
+        fun from(value: List<JValue>): JValue {
+            return JArray.fromList(value)
+        }
+
+        fun from(value: List<String>): JValue {
+            return JArray.fromStringList(value)
+        }
+
+        fun from(value: IntArray): JValue {
+            return JArray.fromArray(value)
+        }
+
+        fun from(value: LongArray): JValue {
+            return JArray.fromArray(value)
+        }
+
+        fun from(value: FloatArray): JValue {
+            return JArray.fromArray(value)
+        }
+
+        fun from(value: DoubleArray): JValue {
+            return JArray.fromArray(value)
+        }
+
+        fun from(value: Map<String, JValue>): JValue {
+            return JObject.fromMap(value)
+        }
+
+        fun from(value: Map<String, String>): JValue {
+            return JObject.fromStringMap(value)
+        }
     }
 }

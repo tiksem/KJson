@@ -101,7 +101,7 @@ class JArray internal constructor(internal val value: JsonArray) : JValue {
     val size: Int
         get() = value.size
 
-    fun toList(): List<JValue> {
+    override fun toList(): List<JValue> {
         return object : AbstractList<JValue>() {
             override val size: Int
                 get() = value.size
@@ -127,6 +127,96 @@ class JArray internal constructor(internal val value: JsonArray) : JValue {
             } catch (e: Exception) {
                 return null
             }
+        }
+
+        fun fromList(list: List<JValue>): JArray {
+            return JArray(
+                buildJsonArray {
+                    list.forEach {
+                        when (it) {
+                            is JPrimitive -> add(it.value ?: JsonNull)
+                            is JObject -> add(it.map)
+                            is JArray -> add(it.value)
+                            else -> add(JsonNull)
+                        }
+                    }
+                }
+            )
+        }
+
+        fun fromStringList(list: List<String>): JArray {
+            return JArray(
+                buildJsonArray {
+                    list.forEach {
+                        add(JsonPrimitive(it))
+                    }
+                }
+            )
+        }
+
+        fun fromArray(array: IntArray): JArray {
+            return JArray(
+                buildJsonArray {
+                    array.forEach {
+                        add(JsonPrimitive(it))
+                    }
+                }
+            )
+        }
+
+        fun fromArray(array: LongArray): JArray {
+            return JArray(
+                buildJsonArray {
+                    array.forEach {
+                        add(JsonPrimitive(it))
+                    }
+                }
+            )
+        }
+
+        fun fromArray(array: DoubleArray): JArray {
+            return JArray(
+                buildJsonArray {
+                    array.forEach {
+                        add(JsonPrimitive(it))
+                    }
+                }
+            )
+        }
+
+        fun fromArray(array: FloatArray): JArray {
+            return JArray(
+                buildJsonArray {
+                    array.forEach {
+                        add(JsonPrimitive(it))
+                    }
+                }
+            )
+        }
+
+        fun fromArray(array: Array<String>): JArray {
+            return JArray(
+                buildJsonArray {
+                    array.forEach {
+                        add(JsonPrimitive(it))
+                    }
+                }
+            )
+        }
+
+        fun fromArray(array: Array<JValue>): JArray {
+            return JArray(
+                buildJsonArray {
+                    array.forEach {
+                        when (it) {
+                            is JPrimitive -> add(it.value ?: JsonNull)
+                            is JObject -> add(it.map)
+                            is JArray -> add(it.value)
+                            else -> add(JsonNull)
+                        }
+                    }
+                }
+            )
         }
     }
 }
