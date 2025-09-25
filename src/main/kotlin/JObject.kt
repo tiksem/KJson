@@ -3,7 +3,7 @@ package com.kjson
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 
-class JObject internal constructor(internal val map: JsonObject): JValue {
+class JObject(internal val map: JsonObject): JValue {
     override fun optInt(key: String): Int? {
         return map[key]?.jsonPrimitive?.intOrNull
     }

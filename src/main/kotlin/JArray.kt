@@ -3,7 +3,7 @@ package com.kjson
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 
-class JArray internal constructor(internal val value: JsonArray) : JValue {
+class JArray(internal val value: JsonArray) : JValue {
     private fun getPrimitive(index: Int) = value.getOrNull(index)?.jsonPrimitive
 
     override fun optInt(index: Int): Int? {
