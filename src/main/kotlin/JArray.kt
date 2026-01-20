@@ -101,7 +101,7 @@ class JArray(internal val value: JsonArray) : JValue {
     val size: Int
         get() = value.size
 
-    override fun toList(): List<JValue> {
+    override fun toListOrNull(): List<JValue> {
         return object : AbstractList<JValue>() {
             override val size: Int
                 get() = value.size
